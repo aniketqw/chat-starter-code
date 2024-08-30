@@ -9,7 +9,8 @@ const path = require('path');
 const WebSocket = require('ws');
 
 // You may choose to use the constants defined in the file below
-const { PORT, CLIENT } = CONSTANTS;
+const PORT = process.env.PORT || 8080;
+
 
 ///////////////////////////////////////////////
 ///////////// HTTP SERVER LOGIC ///////////////
@@ -28,7 +29,8 @@ const server = http.createServer((req, res) => {
 
   // pipe the proper file to the res object
   res.writeHead(200, { 'Content-Type': contentType });
-  fs.createReadStream(`${__dirname}/${filePath}`, 'utf8').pipe(res);
+  fs.createReadStream(path.join(__dirname, filePath), 'utf8').pipe(res);
+
 });
 
 ///////////////////////////////////////////////
